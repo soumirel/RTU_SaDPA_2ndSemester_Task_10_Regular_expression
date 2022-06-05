@@ -20,6 +20,6 @@ public:
 		-15, -14, -13, -12, -11, -10, -9, -8, -7, -4,
 		-5, -6, -3, -2, -1 };
 
-	std::string encodeString(std::string& S, const char Sample[]);
+	void encodeString(std::string& S, const char Sample[]);
 };
 

@@ -151,6 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Dictonary.txt" />
+    <Text Include="Dictonary2.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

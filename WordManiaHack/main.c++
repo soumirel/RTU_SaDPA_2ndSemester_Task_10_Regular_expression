@@ -9,9 +9,9 @@
 using namespace std;
 
 void printMenu();
-void wordsManiaTraversal(size_t currentPosition, size_t trieCell, bool checkedCells[], string gamefield, string resultWord);
-void WordsmaniaCheat(string gamefield);
-bool cmp(string A, string B);
+void wordsManiaTraversal(size_t trieCell, size_t currentPosition, bool checkedCells[], string gamefield, string resultWord);
+void WordsmaniaCheat(string& gamefield);
+bool stringComparator(string firstS, string secondS);
 void printHackResult();
 
 
@@ -45,7 +45,8 @@ int main()
 		{
 		case 1:
 			cin >> gamefield;
-			WordsmaniaCheat(encoder.encodeString(gamefield, encoder.ConsoleSample));
+			encoder.encodeString(gamefield, encoder.ConsoleSample);
+			WordsmaniaCheat(gamefield);
 			printHackResult();
 			system("pause");
 			break;
@@ -84,11 +85,10 @@ void printMenu()
 }
 
 
-void wordsManiaTraversal(size_t currentPosition, size_t trieCell, bool checkedCells[], string gamefield, string resultWord)
+void wordsManiaTraversal(size_t trieCell, size_t currentPosition, bool checkedCells[], string gamefield, string resultWord)
 {
 	bool bannedWays[11] = { false };
 
-	//Запрет на путь в точку -2, 2 и в саму себя.
 	for (int i = -2; i <= 2; i += 2)
 	{
 		bannedWays[i + 5] = true;
@@ -126,38 +126,46 @@ void wordsManiaTraversal(size_t currentPosition, size_t trieCell, bool checkedCe
 		}
 	}
 
-	for (int i = -5; i <= 5; i++)
+	for (int i = -5; i <= 5; i++) 
 	{
-		int nextPosition = currentPosition + i;
-		if (bannedWays[i + 5] == true)
+		if (bannedWays[i + 5])
 		{
 			continue;
 		}
-		if (!checkedCells[nextPosition])
+
+		int nextPosition = currentPosition + i;
+
+		if (!checkedCells[nextPosition]) 
 		{
-			if (mainTrie.trie[trieCell].child[gamefield[nextPosition]] != 0) {
+			if (mainTrie.trie[trieCell].child[gamefield[nextPosition]] != 0) 
+			{
 				checkedCells[nextPosition] = true;
-				wordsManiaTraversal(nextPosition, mainTrie.trie[trieCell].child[gamefield[nextPosition]],
-					checkedCells, gamefield, resultWord + gamefield[currentPosition]);
+
+				wordsManiaTraversal(mainTrie.trie[trieCell].child[gamefield[nextPosition]],
+					nextPosition, checkedCells, gamefield, resultWord + gamefield[nextPosition]);
+
 				checkedCells[nextPosition] = false;
 			}
 		}
-		if (mainTrie.trie[trieCell].isLeaf) {
+
+		if (mainTrie.trie[trieCell].isLeaf) 
+		{
 			Res.insert(resultWord);
 		}
 	}
 }
 
 
-void WordsmaniaCheat(string gamefield)
+void WordsmaniaCheat(string& gamefield)
 {
 	bool checkedCells[16] = { false };
-	for (size_t i = 0; i < 16; i++) {
+	for (size_t i = 0; i < 16; i++) 
+	{
 		if (mainTrie.trie[0].child[gamefield[i]] != 0)
 		{
 			checkedCells[i] = true;
-			wordsManiaTraversal(i, mainTrie.trie[0].child[gamefield[i]],
-				checkedCells, gamefield, "");
+			wordsManiaTraversal(mainTrie.trie[0].child[gamefield[i]], i,
+				checkedCells, gamefield, gamefield.substr(i, 1));
 			checkedCells[i] = false;
 		}
 	}
@@ -166,15 +174,18 @@ void WordsmaniaCheat(string gamefield)
 
 void printHackResult()
 {
-	for (auto& token : Res) {
+	for (auto& token : Res) 
+	{
 		Output.push_back(token);
 	}
 	Res.clear();
 
-	sort(Output.begin(), Output.end(), cmp);
-	for (auto i(Output.begin()); i != Output.end(); ++i) {
-		for (auto j((*i).begin()); j != (*i).end(); ++j) {
-			cout << encoder.ConsoleSample[*j];
+	sort(Output.begin(), Output.end(), stringComparator);
+	for (auto& token : Output) 
+	{
+		for (auto& tokenOfToken : token)
+		{
+			cout << encoder.ConsoleSample[tokenOfToken];
 		}
 		cout << endl;
 	}
@@ -183,8 +194,10 @@ void printHackResult()
 }
 
 
-bool cmp(string A, string B) {
-	if (A.size() >= B.size()) {
+bool stringComparator(string firstS, string secondS)
+{
+	if (firstS.size() >= secondS.size()) 
+	{
 		return false;
 	}
 	else return true;

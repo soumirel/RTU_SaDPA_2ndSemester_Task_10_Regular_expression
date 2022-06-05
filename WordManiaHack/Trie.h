@@ -7,8 +7,7 @@
 #include <fstream>
 
 
-class Trie :
-	public StringEncoder
+class Trie
 {
 private:
 	struct Node

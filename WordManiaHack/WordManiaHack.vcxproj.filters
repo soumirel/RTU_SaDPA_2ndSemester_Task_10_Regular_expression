@@ -40,6 +40,9 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <Text Include="Dictonary2.txt">
+      <Filter>Файлы ресурсов</Filter>
+    </Text>
     <Text Include="Dictonary.txt">
       <Filter>Файлы ресурсов</Filter>
     </Text>

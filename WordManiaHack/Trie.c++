@@ -8,13 +8,16 @@ Trie::Trie()
 
 void Trie::loadDictionary(std::string fileName)
 {
+	StringEncoder encoder;
+
 	std::ifstream file(fileName);
 	std::string buffer;
 
 	while (!file.eof())
 	{
 		file >> buffer;
-		addWord(encodeString(buffer, FstreamSample));
+		encoder.encodeString(buffer, encoder.FstreamSample);
+		addWord(buffer);
 	}
 
 	file.close();
@@ -23,20 +26,20 @@ void Trie::loadDictionary(std::string fileName)
 
 void Trie::addWord(std::string S)
 {
-
 	size_t currentNode = 0;
-	for (auto& vectorToken : S)
+
+	for (auto& token : S)
 	{
 
-		if (trie.at(currentNode).child[vectorToken] == 0)
+		if (trie.at(currentNode).child[token] == 0)
 		{
 			trie.push_back(nullNode);
-			trie.at(currentNode).child[vectorToken] = trie.size() - 1;
+			trie.at(currentNode).child[token] = trie.size() - 1;
 			currentNode = trie.size() - 1;
 		}
 		else
 		{
-			currentNode = trie.at(currentNode).child[vectorToken];
+			currentNode = trie.at(currentNode).child[token];
 		}
 	}
 	trie.at(currentNode).isLeaf = true;
