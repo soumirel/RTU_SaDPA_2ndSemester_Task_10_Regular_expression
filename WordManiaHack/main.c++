@@ -1,3 +1,4 @@
+// Пример игрового поля - пноеаавкткбклсоо
 #include "Trie.h"
 #include "StringEncoder.h"
 
@@ -22,7 +23,7 @@ vector<string> Output;
 
 int main()
 {
-	//setlocale(LC_ALL, "Russian");
+	setlocale(LC_ALL, "Russian");
 	mainTrie.loadDictionary("Dictonary.txt");
 
 	// Главные переменные
@@ -44,6 +45,7 @@ int main()
 		switch (userMenuChoice)
 		{
 		case 1:
+			cout << "Введите игровое поле в строчку (16 символов): ";
 			cin >> gamefield;
 			encoder.encodeString(gamefield, encoder.ConsoleSample);
 			WordsmaniaCheat(gamefield);
@@ -79,7 +81,7 @@ void printMenu()
 		"Задание - Регулярные выражения.\n"
 		"~~~~~~~~~~~~~~~~~Меню~~~~~~~~~~~~~~~\n";
 
-	cout << "\nВведите [], чтобы \n"
+	cout << "\nВведите [1], чтобы запустить чит для игры Словомания\n"
 		"Введите [0], чтобы закончить работу программы.\n";
 	cout << "\nВаш выбор: ";
 }
@@ -174,6 +176,8 @@ void WordsmaniaCheat(string& gamefield)
 
 void printHackResult()
 {
+	cout << "Все слова на данном игровом поле:\n";
+
 	for (auto& token : Res) 
 	{
 		Output.push_back(token);
@@ -181,15 +185,16 @@ void printHackResult()
 	Res.clear();
 
 	sort(Output.begin(), Output.end(), stringComparator);
+	size_t tokenIterator = 0;
 	for (auto& token : Output) 
 	{
+		cout << ++tokenIterator << ". ";
 		for (auto& tokenOfToken : token)
 		{
-			cout << encoder.ConsoleSample[tokenOfToken];
+			cout << encoder.FstreamSample[tokenOfToken];
 		}
 		cout << endl;
 	}
-	cout << "==================" << endl << endl;
 	Output.clear();
 }
 
@@ -200,5 +205,8 @@ bool stringComparator(string firstS, string secondS)
 	{
 		return false;
 	}
-	else return true;
+	else
+	{
+		return true;
+	}
 }

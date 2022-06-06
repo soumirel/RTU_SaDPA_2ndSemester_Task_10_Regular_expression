@@ -18,27 +18,19 @@
     <ClCompile Include="main.c++">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Trie.c++">
+    <ClCompile Include="Timer.c++">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="StringEncoder.cpp">
+    <ClCompile Include="Test.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Trie.h">
+    <ClInclude Include="Timer.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="StringEncoder.h">
+    <ClInclude Include="Test.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Dictonary2.txt">
-      <Filter>Файлы ресурсов</Filter>
-    </Text>
-    <Text Include="Dictonary.txt">
-      <Filter>Файлы ресурсов</Filter>
-    </Text>
   </ItemGroup>
 </Project>

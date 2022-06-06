@@ -1,5 +1,7 @@
 #include "Trie.h"
+#include "Trie.h"
 #include <iostream>
+
 
 Trie::Trie()
 {
